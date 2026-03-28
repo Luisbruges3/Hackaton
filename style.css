@@ -162,19 +162,19 @@ label {
 input[type="number"] {
     width: 100%;
     padding: 13px 16px;
-    background: var(--beige);
+    background: var(--blanco);
     border: 1.5px solid var(--beige-oscuro);
     border-radius: 12px;
     font-family: 'Instrument Sans', sans-serif;
     font-size: 1rem;
-    color: var(--texto-oscuro);
+    color: #b9b6ac;
     outline: none;
     transition: border-color .2s, background .2s, box-shadow .2s;
     /*-webkit-appearance: none;*/
     margin-bottom: 18px;
 }
  
-input[type="number"]::placeholder { color: #b0a88e; }
+input[type="number"]::placeholder { color: #b9b6ac; }
  
 input[type="number"]:focus {
     border-color: var(--agua);

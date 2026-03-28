@@ -10,27 +10,100 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- pantalla sliders --- */
+        #pantalla-sliders,
+        #pantalla-principal {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px 56px;
+            min-height: calc(100vh - 60px);
+        }
+
+        #pantalla-principal { display: none; }
+
+        .card-sliders {
+            background: #fff;
+            border: 1px solid var(--beige-oscuro);
+            border-radius: 24px;
+            padding: 40px 36px 36px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1px 6px rgba(0,0,0,0.04);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .card-sliders h2 {
+            font-family: 'Fugaz One', sans-serif;
+            font-size: 1.6rem;
+            color: var(--verde-letra);
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .card-sliders .subtitulo {
+            font-size: 0.82rem;
+            color: var(--texto-medio);
+            text-align: center;
+            margin-bottom: 32px;
+            letter-spacing: 0.04em;
+        }
+
+        .slider-bloque {
+            margin-bottom: 28px;
+        }
+
+        .btn-guardar {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 13px;
+            background: linear-gradient(135deg, rgb(139, 247, 255), var(--agua));
+            color: var(--blanco);
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.92rem;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s, filter .2s;
+            box-shadow: 0 5px 18px rgba(58,170,94,0.3);
+            margin-top: 8px;
+        }
+
+        .btn-guardar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 26px rgba(58,170,94,0.4);
+            filter: brightness(1.04);
+        }
+
+        .btn-guardar:active {
+            transform: translateY(0);
+            filter: brightness(0.97);
+        }
+
+        @media (max-width: 600px) {
+            .card-sliders { padding: 28px 20px 26px; border-radius: 18px; }
+            .card-sliders h2 { font-size: 1.3rem; }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand mx-auto mb-0 h1">Reto Riego Colombia</span>
     </nav>
 
-    <body>
-        <div>
-            <h1>AGROCLIMA</h1>
-            <h3>INTELIGENTE</h3>
-            <form action="calculadora.php" method="post">
-                <label for="num1">Valor de tu factura actual</label>
-                <input type="number" id="num1" name="num1" required><br><br>
+    <!-- PANTALLA 1: Sliders -->
+    <div id="pantalla-sliders">
+        <div class="card-sliders">
+            <h2>Cuéntanos sobre tu cultivo</h2>
+            <p class="subtitulo">Selecciona el tipo de cultivo y el clima de tu zona</p>
 
-                <label for="num2">¿Aproximadamente cuantas horas riegas al día?</label>
-                <input type="number" id="num2" name="num2" required><br><br>
-
-                <label for="num3">¿Cuanto tiempo regó el sistema automatico?</label>
-                <input type="number" id="num3" name="num3" required><br><br>
-
-                <!-- SLIDER CULTIVO -->
+            <!-- SLIDER CULTIVO -->
+            <div class="slider-bloque">
                 <label for="cultivo">Tipo de cultivo</label>
                 <div class="slider-opciones">
                     <input type="range" id="cultivo" name="cultivo" min="0" max="4" step="1" value="0" oninput="actualizarCultivo(this.value)">
@@ -42,9 +115,11 @@
                         <span>Arroz</span>
                     </div>
                     <div class="slider-valor" id="valorCultivo">Papa</div>
-                </div><br>
+                </div>
+            </div>
 
-                <!-- SLIDER CLIMA -->
+            <!-- SLIDER CLIMA -->
+            <div class="slider-bloque">
                 <label for="clima">Tipo de clima de tu área</label>
                 <div class="slider-opciones">
                     <input type="range" id="clima" name="clima" min="0" max="4" step="1" value="0" oninput="actualizarClima(this.value)">
@@ -56,37 +131,88 @@
                         <span>Húmedo</span>
                     </div>
                     <div class="slider-valor" id="valorClima">Cálido</div>
-                </div><br><br>
+                </div>
+            </div>
 
-            </form>
-            <button type="button" onclick="calcular()">Calcular</button>
-
-            <p>Resultado: <span id="resultado"></span></p>
-
+            <button class="btn-guardar" onclick="guardarYcontinuar()">Guardar y continuar →</button>
         </div>
+    </div>
 
-        <script>
-            const cultivos = ['Papa', 'Yuca', 'Maíz', 'Café', 'Arroz'];
-            const climas   = ['Cálido', 'Seco', 'Templado', 'Frío', 'Húmedo'];
+    <!-- PANTALLA 2: Formulario principal -->
+    <div id="pantalla-principal">
+    <div>
+        <h1>AGROCLIMA</h1>
+        <h3>INTELIGENTE</h3>
+        <form action="calculadora.php" method="post">
+            <label for="num1">¿Cuántas horas riegas manualmente al mes?</label>
+            <input type="number" id="num1" name="num1" required><br><br>
 
-            function actualizarCultivo(v) {
-                document.getElementById('valorCultivo').textContent = cultivos[v];
-            }
-            function actualizarClima(v) {
-                document.getElementById('valorClima').textContent = climas[v];
-            }
+            <label for="num2">¿Cuántas horas regó el sistema automático al mes?</label>
+            <input type="number" id="num2" name="num2" required><br><br>
+        </form>
 
-            function calcular(){
-                let nume1 = document.getElementById('num1').value;
-                let nume2 = document.getElementById('num2').value;
-                let nume3 = document.getElementById('num3').value;
+        <button type="button" onclick="calcular()">Calcular</button>
 
-                let resultado = (parseFloat(nume1) * parseFloat(nume3)) / parseFloat(nume2);
-                let porcentaje = (resultado / parseFloat(nume1)) * 100;
+        <p>Resultado: <span id="resultado"></span></p>
+    </div>
+</div>
 
-                document.getElementById("resultado").innerText = "Tu nuevo valor de la factura será: $" + resultado.toFixed(2) + " pesos, estas ahorrando un "  + porcentaje.toFixed(2) + "% de tu factura actual.";
-            }
-        </script>
-    </body>
+<script>
+    const cultivos = ['Papa', 'Yuca', 'Maíz', 'Café', 'Arroz'];
+    const climas   = ['Cálido', 'Seco', 'Templado', 'Frío', 'Húmedo'];
+
+    // Tarifas fijas
+    const tarifaAgua = 11.5;   // $ por m³
+    const tarifaLuz  = 796;    // $ por kWh
+
+    // Constantes fijas de la bomba
+    const caudal   = 20;    // L/min (ajusta según tu bomba)
+    const potencia = 0.75;  // kW (ajusta según tu bomba)
+
+    function actualizarCultivo(v) {
+        document.getElementById('valorCultivo').textContent = cultivos[v];
+    }
+
+    function actualizarClima(v) {
+        document.getElementById('valorClima').textContent = climas[v];
+    }
+
+    function guardarYcontinuar() {
+        document.getElementById('pantalla-sliders').style.display = 'none';
+        document.getElementById('pantalla-principal').style.display = 'flex';
+    }
+
+    function calcular() {
+        let horasManual = parseFloat(document.getElementById('num1').value);
+        let horasAuto   = parseFloat(document.getElementById('num2').value);
+
+        // --- RIEGO MANUAL ---
+        let aguaManual    = (caudal * horasManual * 60) / 1000;  // m³
+        let energiaManual = potencia * horasManual;               // kWh
+        let costoAguaMan  = aguaManual * tarifaAgua;
+        let costoLuzMan   = energiaManual * tarifaLuz;
+        let totalManual   = costoAguaMan + costoLuzMan;
+
+        // --- RIEGO AUTOMÁTICO ---
+        let aguaAuto    = (caudal * horasAuto * 60) / 1000;      // m³
+        let energiaAuto = potencia * horasAuto;                   // kWh
+        let costoAguaAu = aguaAuto * tarifaAgua;
+        let costoLuzAu  = energiaAuto * tarifaLuz;
+        let totalAuto   = costoAguaAu + costoLuzAu;
+
+        // --- AHORRO ---
+        let ahorro    = totalManual - totalAuto;
+        let ahorroPct = (ahorro / totalManual) * 100;
+
+        document.getElementById("resultado").innerHTML = `
+    <strong>Resultados:</strong><br>
+    ✅ Agua consumida: <strong>${aguaAuto.toFixed(2)} m³</strong><br>
+    ✅ Energía consumida: <strong>${energiaAuto.toFixed(2)} kWh</strong><br><br>
+    💧 Costo de agua: <strong>$${costoAguaAu.toFixed(2)}</strong><br>
+    ⚡ Costo de luz: <strong>$${costoLuzAu.toFixed(2)}</strong><br><br>
+    ✅ <strong>Ahorras: $${ahorro.toFixed(2)} (${ahorroPct.toFixed(1)}% menos que el riego manual)</strong>
+`;
+    }
+</script>
 </body>
 </html>

@@ -21,7 +21,7 @@ html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Instrument Sans', sans-serif;
-    background: var(--beige);
+    background: var(--white);
     min-height: 100vh;
     display: flex;
     flex-direction: column;

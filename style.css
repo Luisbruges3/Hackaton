@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Sans:wght@300;400;500&display=swap');
- 
+
+.fjalla-one-regular {
+  font-family: "Fjalla One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fugaz-one-regular {
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
  
 :root {
@@ -7,7 +20,7 @@
     --beige-oscuro:   #e0d4b8;
     --nav-azul:       #a8d4e6;
     --nav-azul-borde: #85bfd6;
-    --verde-letra:    #2e6b45;
+    --verde-letra:    #247189;
     --verde-claro:    #3aaa5e;
     --agua:           #4ab3c8;
     --agua-suave:     #d0eef5;
@@ -119,16 +132,21 @@ body > body > div {
 }
  
 /* ── título ── */
-h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem;
+h1, h3 {
+    font-family: 'Fugaz One', sans-serif;
+    font-size: 3.5rem;
     font-weight: 800;
     color: var(--verde-letra);
     line-height: 1.15;
     margin-bottom: 28px;
     letter-spacing: -0.02em;
+    text-align: center;
 }
- 
+
+h3{
+    font-size: 2rem;
+    margin-top: -22px;
+}
 /* ── labels ── */
 label {
     display: block;

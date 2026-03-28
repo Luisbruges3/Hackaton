@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Sans:wght@300;400;500&display=swap');
+ 
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+:root {
+    --beige:          #f0e9d6;
+    --beige-oscuro:   #e0d4b8;
+    --nav-azul:       #a8d4e6;
+    --nav-azul-borde: #85bfd6;
+    --verde-letra:    #2e6b45;
+    --verde-claro:    #3aaa5e;
+    --agua:           #4ab3c8;
+    --agua-suave:     #d0eef5;
+    --tierra:         #8c6a3f;
+    --texto-oscuro:   #2c2c2c;
+    --texto-medio:    #5a5a5a;
+    --blanco:         #ffffff;
+}
+ 
+html { scroll-behavior: smooth; }
+ 
+body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--beige);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+ 
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 70% 50% at 15% 85%, rgba(58,170,94,0.1)  0%, transparent 55%),
+        radial-gradient(ellipse 50% 45% at 88% 12%, rgba(74,179,200,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 35% at 55% 65%, rgba(140,106,63,0.06) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+}
+ 
+/* ── navbar ── */
+.navbar {
+    position: relative;
+    z-index: 10;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px !important;
+    height: 60px;
+    background: var(--nav-azul) !important;
+    border-bottom: 2px solid var(--nav-azul-borde);
+    box-shadow: 0 2px 12px rgba(74,140,180,0.18);
+}
+ 
+.navbar-brand {
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--verde-letra) !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+ 
+.navbar-brand::before {
+    content: '💧';
+    font-size: 1rem;
+    animation: pulse 2.5s ease-in-out infinite;
+}
+ 
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.2); }
+}
+ 
+/* ── layout principal ── */
+body > div {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px 56px;
+    min-height: calc(100vh - 60px);
+}
+ 
+body > div > h1,
+body > div > form,
+body > div > button,
+body > div > p {
+    width: 100%;
+    max-width: 500px;
+}
+ 
+/* ── card (div anidado del HTML original) ── */
+body > body > div {
+    background: var(--blanco);
+    border: 1px solid var(--beige-oscuro);
+    border-radius: 24px;
+    padding: 44px 40px 40px;
+    box-shadow:
+        0 4px 24px rgba(0,0,0,0.07),
+        0 1px 6px rgba(0,0,0,0.04);
+    max-width: 500px;
+    width: 100%;
+    animation: riseUp .65s cubic-bezier(0.22,1,0.36,1) both;
+}
+ 
+@keyframes riseUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+ 
+/* ── título ── */
+h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--verde-letra);
+    line-height: 1.15;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+}
+ 
+/* ── labels ── */
+label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--texto-medio);
+    margin-bottom: 7px;
+}
+ 
+/* ── inputs ── */
+input[type="number"] {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--beige);
+    border: 1.5px solid var(--beige-oscuro);
+    border-radius: 12px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--texto-oscuro);
+    outline: none;
+    transition: border-color .2s, background .2s, box-shadow .2s;
+    /*-webkit-appearance: none;*/
+    margin-bottom: 18px;
+}
+ 
+input[type="number"]::placeholder { color: #b0a88e; }
+ 
+input[type="number"]:focus {
+    border-color: var(--agua);
+    background: #f0fafe;
+    box-shadow: 0 0 0 3px rgba(74,179,200,0.15);
+}
+ 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+ 
+/* ── botón ── */
+button[type="button"] {
+    width: 100%;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--nav-azul), var(--agua));
+    color: var(--blanco);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s, filter .2s;
+    box-shadow: 0 5px 18px rgba(58,170,94,0.3);
+    margin-top: 6px;
+}
+ 
+button[type="button"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 26px rgba(58,170,94,0.4);
+    filter: brightness(1.04);
+}
+ 
+button[type="button"]:active {
+    transform: translateY(0);
+    filter: brightness(0.97);
+}
+ 
+/* ── resultado ── */
+p {
+    margin-top: 22px;
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #d6f8f8, #eaf7ef);
+    border: 1.5px solid rgba(58,170,94,0.2);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--texto-oscuro);
+    line-height: 1.65;
+}
+ 
+p:empty { display: none; }
+ 
+#resultado {
+    color: var(--verde-letra);
+    font-weight: 500;
+}
+ 
+/* ── responsive móvil ── */
+@media (max-width: 600px) {
+    .navbar { height: 54px; }
+ 
+    .navbar-brand {
+        font-size: 0.95rem !important;
+        letter-spacing: 0.12em;
+    }
+ 
+    body > div {
+        padding: 28px 12px 40px;
+        justify-content: flex-start;
+    }
+ 
+    body > body > div {
+        padding: 28px 20px 26px;
+        border-radius: 18px;
+    }
+ 
+    h1 {
+        font-size: 1.55rem;
+        margin-bottom: 20px;
+    }
+ 
+    label { font-size: 0.72rem; }
+ 
+    input[type="number"] {
+        font-size: 0.95rem;
+        padding: 12px 14px;
+        margin-bottom: 14px;
+    }
+ 
+    button[type="button"] {
+        padding: 14px 20px;
+        font-size: 0.88rem;
+    }
+ 
+    p {
+        font-size: 0.88rem;
+        padding: 16px;
+    }
+}
+ 
+@media (max-width: 360px) {
+    body > body > div { padding: 22px 14px 20px; }
+    h1 { font-size: 1.3rem; }
+}

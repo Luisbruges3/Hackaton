@@ -167,7 +167,7 @@ label {
 input[type="number"] {
     width: 100%;
     padding: 13px 16px;
-    background: var(--beige);
+    background: var(--blanco);
     border: 1.5px solid var(--beige-oscuro);
     border-radius: 12px;
     font-family: 'Instrument Sans', sans-serif;
